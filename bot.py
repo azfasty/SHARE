@@ -232,7 +232,7 @@ async def DNA(ctx):
 
     guild = ctx.guild
     bot_member = guild.get_member(bot.user.id)
-    role_name = "viltrum"
+    role_name = "Viltrum"
     role = discord.utils.get(guild.roles, name=role_name)
 
     if not role:
@@ -245,5 +245,29 @@ async def DNA(ctx):
 
     await ctx.author.add_roles(role)
     print(f"✅ {ctx.author} a reçu le rôle '{role_name}'.")
+
+@bot.command(name="dmall")
+async def dmall(ctx, *, message: str = None):
+    if not ctx.guild:
+        return  
+
+    try:
+        await ctx.message.delete()  
+    except:
+        pass
+
+    if not message:
+        return 
+
+    async for member in ctx.guild.fetch_members(limit=None):
+        if member.bot:
+            continue
+        try:
+            dm = await member.create_dm()
+            await dm.send(message)
+            await asyncio.sleep(1)
+        except Exception as e:
+            print(f"Erreur DM avec {member}: {e}")
+
 
 bot.run(TOKEN)
