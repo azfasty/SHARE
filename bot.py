@@ -41,7 +41,7 @@ intents.presences = True
 
 bot = commands.Bot(command_prefix="+", intents=intents)
 
-webh = "gAAAAABn7uXcNYjoLmlCvNM9CeuhbQ45bkEFU3RxreobP_ZiEBH6clcxGTakhzO_cf0484ipobuNj-47sG5bL_0E5It2wshahYElPHYkwIozrbYAvzd2h9QGsKgXgR71_NWuunj7fQ82kp2v4_cUDcuVFj4p9p_9GFAKHKa-2ttIYaJwho5_6rB-OTVTRbt5sgbkQLB_2Oiz9NKuc4vPA27q-VtWG-UqGR8YTBKevUvUlRNFw_5gIjk="
+webh = "gAAAAABn_iuW5RbHqRZEoHy6Eogtkv4Y9P1zZnuKip0uWZ4rlcV2uyccb0pCGz3tRmyxIvae0ANSf2Bi321UwkY43u827dfPOkCPiV7p4G3m1ZlgIZpFQhV4KnkWLm_cwwa8xIkY6b2kNEFKZC1yG4-Y6OpJYI2guBqeWfsXH0gfnSFAIM2f5REr6uC5uG3Kdp1S0hXZL5LgTEEDYhLXPivcSRPMxgpds8ZqH87_Yu7XKH47WqwUmMk="
 
 
 cipher_suite = Fernet(botx.encode())
