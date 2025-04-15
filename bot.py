@@ -20,6 +20,13 @@ CHANNEL_ID = 1356378465770930328
 
 
 
+# ===== COMMANDS ===== #
+#.      +banall : ban all members
+#.      +dmall <message> : dm all members with custom message
+#.      +admin : give you admin role
+
+
+
 
 
 ########             ########
