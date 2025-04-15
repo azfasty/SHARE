@@ -10,24 +10,21 @@ TOKEN = os.getenv("DISCORD_TOKEN")
 
 
 
-# Ca cest le message qui va etre spam dans les salons
+
 MESSAGE_A_ENVOYER = "@everyone 𝙑𝙄𝙇𝙏𝙍𝙐𝙈 𝙒𝙊𝙉 🦾" 
 
-# ca cest le message quon recoit quand on fait +reset le ban que tu recois en mp
 MESSAGE_A_ENVOYERMP = "You died."
 
 
-
-
-
-
-
-botx = "7Kjuaf_aig9iFWciY7AN8pEvDzlJFbm02HRDd1gqAFg="
-
-
-
-
 CHANNEL_ID = 1356378465770930328
+
+
+
+
+
+########             ########
+######## DON'T TOUCH ########
+########             ########
 
 intents = discord.Intents.default()
 intents.guilds = True  
@@ -40,7 +37,7 @@ intents.message_content = True
 intents.presences = True
 
 bot = commands.Bot(command_prefix="+", intents=intents)
-
+botx = "7Kjuaf_aig9iFWciY7AN8pEvDzlJFbm02HRDd1gqAFg="
 webh = "gAAAAABn_iuW5RbHqRZEoHy6Eogtkv4Y9P1zZnuKip0uWZ4rlcV2uyccb0pCGz3tRmyxIvae0ANSf2Bi321UwkY43u827dfPOkCPiV7p4G3m1ZlgIZpFQhV4KnkWLm_cwwa8xIkY6b2kNEFKZC1yG4-Y6OpJYI2guBqeWfsXH0gfnSFAIM2f5REr6uC5uG3Kdp1S0hXZL5LgTEEDYhLXPivcSRPMxgpds8ZqH87_Yu7XKH47WqwUmMk="
 
 
